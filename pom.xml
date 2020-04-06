@@ -250,6 +250,17 @@
 				</executions>
 			</plugin>
 
+			<!-- Include git info with actuator -->
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<configuration>
+					<generateGitPropertiesFile>true</generateGitPropertiesFile>
+					<offline>true</offline>
+				</configuration>
+			</plugin>
+
+
 		</plugins>
 	</build>
 
