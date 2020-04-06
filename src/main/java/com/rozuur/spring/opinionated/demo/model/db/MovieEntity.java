@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Data
-@Entity
+@Entity(name = "movie")
 public class MovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
