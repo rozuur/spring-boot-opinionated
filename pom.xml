@@ -16,12 +16,14 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<jdk.version>11</jdk.version>
 		<spring-cloud.version>Hoxton.SR3</spring-cloud.version>
 		<springfox-swagger.version>2.9.2</springfox-swagger.version>
 
 		<!-- mvn plugins -->
 		<formatter-maven-plugin.version>2.10.0</formatter-maven-plugin.version>
 		<impsort-maven-plugin.version>1.3.2</impsort-maven-plugin.version>
+		<maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -164,6 +166,35 @@
 							<goal>validate</goal>
 						</goals>
 						<phase>verify</phase>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Static analysis using PMD -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${maven-pmd-plugin.version}</version>
+				<configuration>
+					<sourceEncoding>utf-8</sourceEncoding>
+					<minimumTokens>100</minimumTokens>
+					<targetJdk>${jdk.version}</targetJdk>
+					<linkXRef>false</linkXRef>
+					<excludes>
+						<exclude>**/*Test.java</exclude>
+						<exclude>**/generated/*.java</exclude>
+					</excludes>
+					<excludeRoots>
+						<excludeRoot>${project.basedir}/target/generated-sources</excludeRoot>
+					</excludeRoots>
+					<skipEmptyReport>false</skipEmptyReport>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>

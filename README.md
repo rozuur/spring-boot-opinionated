@@ -36,4 +36,5 @@ PUT APIs should return updated resource
 ## Static Analysis
 Following plugins are used for static analysis
 
-1. 
+1. maven-pmd-plugin
+2. 
