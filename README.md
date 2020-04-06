@@ -41,9 +41,20 @@ PUT APIs should return updated resource
 
 **/info** API exposes git state through [git-commit-id-plugin](https://github.com/git-commit-id/git-commit-id-maven-plugin)
 
-**/
+**/prometheus** API exposes metrics
+
 ## Static Analysis
 Following plugins are used for static analysis
 
 1. [maven-pmd-plugin](https://maven.apache.org/plugins/maven-pmd-plugin/)
-2. 
+2. [spotbugs-maven-plugin](https://spotbugs.github.io/spotbugs-maven-plugin/)
+3. [modernizer-maven-plugin](https://github.com/gaul/modernizer-maven-plugin)
+
+## Testing
+
+**maven-surefire-plugin** runs tests through maven.
+
+**
+
+## Release
+`mvn deploy` fails if local modifications are present using **maven-scm-plugin** 
