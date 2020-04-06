@@ -15,6 +15,8 @@ To build and run the application at port 8080 use `docker run --rm -it -p8080:80
 ## Local Development
 Start the application at port 8080 and debug port 5005 using `mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"`
 
+Code is auto formatted during compilation using [formatter-maven-plugin](https://code.revelc.net/formatter-maven-plugin/) and [impsort-maven-plugin](https://code.revelc.net/impsort-maven-plugin/).
+
 ## Database
 Liquibase is used for database changes. SQL changes are present at `src/main/resources/db/changelog`
 
@@ -30,3 +32,8 @@ APIs returns data transfer objects instead of entities, to reduce coupling of mo
 
 POST APIs should return **201 Created** with inserted resource 
 PUT APIs should return updated resource
+
+## Static Analysis
+Following plugins are used for static analysis
+
+1. 

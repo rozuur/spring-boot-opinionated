@@ -1,6 +1,7 @@
 package com.rozuur.spring.opinionated.demo.exception;
 
 import lombok.Data;
+
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
 import javax.validation.ConstraintViolation;
+
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -81,7 +83,8 @@ public class ApiError {
     /**
      * Utility method for adding error of ConstraintViolation. Usually when a @Validated validation fails.
      *
-     * @param cv the ConstraintViolation
+     * @param cv
+     *            the ConstraintViolation
      */
     private void addValidationError(ConstraintViolation<?> cv) {
         this.addValidationError(cv.getRootBeanClass().getSimpleName(),

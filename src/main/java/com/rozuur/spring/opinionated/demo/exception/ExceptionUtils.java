@@ -1,6 +1,7 @@
 package com.rozuur.spring.opinionated.demo.exception;
 
 import javax.persistence.EntityNotFoundException;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.function.Supplier;

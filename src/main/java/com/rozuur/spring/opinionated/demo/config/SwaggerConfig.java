@@ -3,6 +3,7 @@ package com.rozuur.spring.opinionated.demo.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -43,8 +44,7 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiEndPointsInfo() {
-        return new ApiInfoBuilder().title(title).description(description)
-                .contact(new Contact(name, url, email))
+        return new ApiInfoBuilder().title(title).description(description).contact(new Contact(name, url, email))
                 .license(license).licenseUrl(licenseUrl).build();
     }
 }

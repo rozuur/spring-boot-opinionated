@@ -18,6 +18,10 @@
 		<java.version>11</java.version>
 		<spring-cloud.version>Hoxton.SR3</spring-cloud.version>
 		<springfox-swagger.version>2.9.2</springfox-swagger.version>
+
+		<!-- mvn plugins -->
+		<formatter-maven-plugin.version>2.10.0</formatter-maven-plugin.version>
+		<impsort-maven-plugin.version>1.3.2</impsort-maven-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -104,6 +108,64 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- Remove unused imports -->
+			<plugin>
+				<groupId>net.revelc.code</groupId>
+				<artifactId>impsort-maven-plugin</artifactId>
+				<version>${impsort-maven-plugin.version}</version>
+				<configuration>
+					<!-- Following groups closely match Intellij's format order -->
+					<groups>com.,lombok.,net.,org.,javax.,java.</groups>
+					<removeUnused>true</removeUnused>
+					<staticAfter>true</staticAfter>
+				</configuration>
+				<executions>
+					<execution>
+						<id>sort-imports</id>
+						<goals>
+							<goal>sort</goal>
+						</goals>
+					</execution>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Auto format code during compilation -->
+			<plugin>
+				<groupId>net.revelc.code.formatter</groupId>
+				<artifactId>formatter-maven-plugin</artifactId>
+				<version>${formatter-maven-plugin.version}</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<configFile>${project.basedir}/tools/formatter-maven-plugin/eclipse/java.xml</configFile>
+					<configJsFile>${project.basedir}/tools/formatter-maven-plugin/eclipse/javascript.xml</configJsFile>
+					<directories>
+						<directory>${project.build.sourceDirectory}</directory>
+					</directories>
+				</configuration>
+				<executions>
+					<execution>
+						<id>format</id>
+						<goals>
+							<goal>format</goal>
+						</goals>
+						<phase>process-resources</phase>
+					</execution>
+					<execution>
+						<id>validate</id>
+						<goals>
+							<goal>validate</goal>
+						</goals>
+						<phase>verify</phase>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
