@@ -1,8 +1,10 @@
 package com.rozuur.spring.opinionated.demo.controller;
 
+import com.rozuur.spring.opinionated.demo.exception.ExceptionUtils;
 import com.rozuur.spring.opinionated.demo.model.db.Movie;
 import com.rozuur.spring.opinionated.demo.service.MovieService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +20,13 @@ public class MovieController {
     }
 
     @GetMapping("/movies")
-    public List<Movie> movie() {
+    public List<Movie> movies() {
         return service.movies();
+    }
+
+    @GetMapping("/movies/{id}")
+    public Movie movie(@PathVariable Long id) {
+        return service.movie(id).orElseThrow(ExceptionUtils.notFoundId(Movie.class, id));
     }
 
 }
