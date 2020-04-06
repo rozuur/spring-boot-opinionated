@@ -22,3 +22,11 @@ For testing, liquibase is disabled and h2 is used. Database entities are generat
 
 ## Swagger
 Swagger is exposed at **/swagger-ui.html**
+
+## REST API
+APIs are exposed with a prefix, here it is **/api/v1**
+
+APIs returns data transfer objects instead of entities, to reduce coupling of models to database schema.
+
+POST APIs should return **201 Created** with inserted resource 
+PUT APIs should return updated resource
