@@ -54,7 +54,7 @@ Following plugins are used for static analysis
 
 **maven-surefire-plugin** runs tests through maven.
 
-**
+[jacoco-maven-plugin](https://www.eclemma.org/jacoco/trunk/doc/maven.html) is used for code coverage
 
 ## Release
 `mvn deploy` fails if local modifications are present using **maven-scm-plugin** 
