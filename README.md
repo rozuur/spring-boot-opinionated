@@ -17,6 +17,8 @@ Start the application at port 8080 and debug port 5005 using `mvn spring-boot:ru
 
 Code is auto formatted during compilation using [formatter-maven-plugin](https://code.revelc.net/formatter-maven-plugin/) and [impsort-maven-plugin](https://code.revelc.net/impsort-maven-plugin/).
 
+[maven-enforcer-plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/) is used to enforce `java` and `mvn` versions.
+
 ## Database
 Liquibase is used for database changes. SQL changes are present at `src/main/resources/db/changelog`
 
