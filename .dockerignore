@@ -1,0 +1,7 @@
+# In .dockerignore
+# Exclude everything:
+*
+
+
+# Only includes those which are necessary
+!target/*-*.jar
