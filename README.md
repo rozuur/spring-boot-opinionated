@@ -13,3 +13,9 @@ This is preferred over multi-stage docker, as multi-stage docker [downloads inte
 
 To build and run the application at port 8080 use `docker run --rm -it -p8080:8080 $(docker build -q .)`
 
+## Local Development
+
+Start the application at port 8080 and debug port 5005 using `mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"`
+
+
+
