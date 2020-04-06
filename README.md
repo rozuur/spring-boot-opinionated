@@ -35,8 +35,15 @@ APIs returns data transfer objects instead of entities, to reduce coupling of mo
 POST APIs should return **201 Created** with inserted resource 
 PUT APIs should return updated resource
 
+## Actuator
+
+**/health** is health check endpoint
+
+**/info** API exposes git state through [git-commit-id-plugin](https://github.com/git-commit-id/git-commit-id-maven-plugin)
+
+**/
 ## Static Analysis
 Following plugins are used for static analysis
 
-1. maven-pmd-plugin
+1. [maven-pmd-plugin](https://maven.apache.org/plugins/maven-pmd-plugin/)
 2. 

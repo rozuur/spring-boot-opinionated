@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "${application.api.prefix}")
+@RequestMapping(path = "${application.api.prefix.v1}")
 public class MovieController {
     private final MovieService service;
 
