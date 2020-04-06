@@ -4,7 +4,7 @@ import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Value
 public class Movie {
@@ -14,5 +14,5 @@ public class Movie {
     @NotBlank
     String director;
 
-    Date releaseDate;
+    LocalDate releaseDate;
 }

@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -23,5 +23,5 @@ public class MovieEntity {
     @NotBlank
     private String director;
 
-    private Date releaseDate;
+    private LocalDate releaseDate;
 }
