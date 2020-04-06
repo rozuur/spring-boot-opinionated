@@ -1,6 +1,7 @@
 application:
   name: @project.name@
   description: @project.description@
+
   swagger:
     name: Rozuur
     url: https://github:com/rozuur/spring-boot-opinionated
@@ -8,6 +9,9 @@ application:
     license:
       name: MIT License
       url: https://mit-license.org/
+
+  api:
+    prefix: /api/v1
 
 spring:
   liquibase:

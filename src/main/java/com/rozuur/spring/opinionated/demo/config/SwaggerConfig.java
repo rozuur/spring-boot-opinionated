@@ -29,7 +29,7 @@ public class SwaggerConfig {
     @Value("${application.swagger.email}")
     private String email;
 
-    @Value("${application.swagger.license}")
+    @Value("${application.swagger.license.name}")
     private String license;
 
     @Value("${application.swagger.license.url}")
