@@ -6,12 +6,10 @@ import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Value
-public final class MovieDto {
-    @NotBlank
-    private String title;
+public class Movie {
+    @NotBlank String title;
 
-    @NotBlank
-    private String director;
+    @NotBlank String director;
 
-    private Date releaseDate;
+    Date releaseDate;
 }
