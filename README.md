@@ -57,4 +57,8 @@ Following plugins are used for static analysis
 [jacoco-maven-plugin](https://www.eclemma.org/jacoco/trunk/doc/maven.html) is used for code coverage
 
 ## Release
-`mvn deploy` fails if local modifications are present using **maven-scm-plugin** 
+`mvn deploy` fails if local modifications are present using **maven-scm-plugin**
+
+**maven-release-plugin** is used in `tools/jenkins_build.sh` for release
+
+**maven-deploy-plugin** is used for deploying to nexus repository if required 
