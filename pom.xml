@@ -32,6 +32,8 @@
 		<spotbugs.version>4.0.0</spotbugs.version>
 		<modernizer-maven-plugin.version>2.1.0</modernizer-maven-plugin.version>
 		<jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+		<!-- 80% of coverage -->
+		<jacoco.minium.coverage>0.8</jacoco.minium.coverage>
 	</properties>
 
 	<dependencies>
@@ -340,7 +342,6 @@
 				<configuration>
 					<excludes>
 						<exclude>com/rozuur/spring/opinionated/demo/exception/ApiError.*</exclude>
-						<exclude>com/rozuur/spring/opinionated/demo/exception/ApiError.*</exclude>
 						<exclude>com/rozuur/spring/opinionated/demo/exception/RestExceptionHandler.*</exclude>
 					</excludes>
 				</configuration>
@@ -368,8 +369,7 @@
 								<rule>
 									<limits>
 										<limit>
-											<!-- 80% of coverage is minimum -->
-											<minimum>0.8</minimum>
+											<minimum>${jacoco.minium.coverage}</minimum>
 										</limit>
 									</limits>
 								</rule>
