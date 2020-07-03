@@ -1,0 +1,477 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!--
+    Checkstyle configuration that checks the Google coding conventions from Google Java Style
+    that can be found at https://google.github.io/styleguide/javaguide.html
+
+    Checkstyle is very configurable. Be sure to read the documentation at
+    http://checkstyle.org (or in your downloaded distribution).
+
+    To completely disable a check, just comment it out or delete it from the file.
+    To suppress certain violations please review suppression filters.
+
+    Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
+ -->
+
+<module name = "Checker">
+    <property name="charset" value="UTF-8"/>
+
+    <property name="severity" value="error"/>
+
+    <property name="fileExtensions" value="java, properties, xml"/>
+    <!-- Excludes all 'module-info.java' files              -->
+    <!-- See https://checkstyle.org/config_filefilters.html -->
+    <module name="BeforeExecutionExclusionFileFilter">
+        <property name="fileNamePattern" value="module\-info\.java$"/>
+    </module>
+
+    <!-- Checks for whitespace                               -->
+    <!-- See http://checkstyle.org/config_whitespace.html -->
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+
+    <module name="FileLength"/> <!-- files must be less than 2000 lines -->
+    <module name="FileTabCharacter"/> <!-- tabs not allowed -->
+    <module name="RegexpSingleline">
+        <property name="format" value="\s+$"/>
+        <property name="message" value="Line has trailing spaces."/>
+    </module>
+    <module name="SuppressWarningsFilter"/> <!-- enable @SuppressWarnings for checkstyle rules -->
+    <module name="Translation"/> <!-- Checks that messages files have the same keys -->
+    <module name="UniqueProperties"/> <!-- checks for duplicate keys in properties files -->
+
+
+    <module name="TreeWalker">
+        <module name="OuterTypeFilename"/>
+        <module name="IllegalTokenText">
+            <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
+            <property name="format"
+                      value="\\u00(09|0(a|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)"/>
+            <property name="message"
+                      value="Consider using special escape sequence instead of octal value or Unicode escaped value."/>
+        </module>
+        <module name="AvoidEscapedUnicodeCharacters"> <!-- prevent use of obscure escape codes -->
+            <property name="allowEscapesForControlCharacters" value="true"/>
+            <property name="allowByTailComment" value="true"/>
+            <property name="allowNonPrintableEscapes" value="true"/>
+        </module>
+        <module name="AvoidNestedBlocks"/> <!-- avoid unnecessary blocks {} -->
+        <module name="BooleanExpressionComplexity"> <!-- restrict number of &&, ||, &, | and ^ expressions -->
+            <property name="max" value="3"/>
+        </module>
+        <module name="OneTopLevelClass"/>
+        <module name="NoLineWrap">
+            <property name="tokens" value="PACKAGE_DEF, IMPORT, STATIC_IMPORT"/>
+        </module>
+        <module name="EmptyBlock">
+            <property name="option" value="TEXT"/>
+            <property name="tokens"
+                      value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH"/>
+        </module>
+        <module name="NeedBraces">
+            <property name="tokens"
+                      value="LITERAL_DO, LITERAL_ELSE, LITERAL_FOR, LITERAL_IF, LITERAL_WHILE"/>
+        </module>
+        <module name="LeftCurly">
+            <property name="tokens"
+                      value="ANNOTATION_DEF, CLASS_DEF, CTOR_DEF, ENUM_CONSTANT_DEF, ENUM_DEF,
+                    INTERFACE_DEF, LAMBDA, LITERAL_CASE, LITERAL_CATCH, LITERAL_DEFAULT,
+                    LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF,
+                    LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF,
+                    OBJBLOCK, STATIC_INIT"/>
+        </module>
+        <module name="RightCurly">
+            <property name="id" value="RightCurlySame"/>
+            <property name="tokens"
+                      value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE,
+                    LITERAL_DO"/>
+        </module>
+        <module name="RightCurly">
+            <property name="id" value="RightCurlyAlone"/>
+            <property name="option" value="alone"/>
+            <property name="tokens"
+                      value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, STATIC_INIT,
+                    INSTANCE_INIT, ANNOTATION_DEF, ENUM_DEF, INTERFACE_DEF"/>
+        </module>
+        <module name="SuppressionXpathSingleFilter">
+            <!-- suppresion is required till https://github.com/checkstyle/checkstyle/issues/7541 -->
+            <property name="id" value="RightCurlyAlone"/>
+            <property name="query" value="//RCURLY[parent::SLIST[count(./*)=1]
+                                                 or preceding-sibling::*[last()][self::LCURLY]]"/>
+        </module>
+        <module name="WhitespaceAfter">
+            <property name="tokens"
+                      value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE,
+                    LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, DO_WHILE"/>
+        </module>
+        <module name="WhitespaceAround">
+            <property name="allowEmptyConstructors" value="true"/>
+            <property name="allowEmptyLambdas" value="true"/>
+            <property name="allowEmptyMethods" value="true"/>
+            <property name="allowEmptyTypes" value="true"/>
+            <property name="allowEmptyLoops" value="true"/>
+            <property name="tokens"
+                      value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR,
+                    BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, DO_WHILE, EQUAL, GE, GT, LAMBDA, LAND,
+                    LCURLY, LE, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY,
+                    LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SWITCH, LITERAL_SYNCHRONIZED,
+                     LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN,
+                     NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, SL, SLIST, SL_ASSIGN, SR,
+                     SR_ASSIGN, STAR, STAR_ASSIGN, LITERAL_ASSERT, TYPE_EXTENSION_AND"/>
+            <message key="ws.notFollowed"
+                     value="WhitespaceAround: ''{0}'' is not followed by whitespace. Empty blocks may only be represented as '{}' when not part of a multi-block statement (4.1.3)"/>
+            <message key="ws.notPreceded"
+                     value="WhitespaceAround: ''{0}'' is not preceded with whitespace."/>
+        </module>
+        <module name="OneStatementPerLine"/>
+        <module name="MultipleVariableDeclarations"/>
+        <module name="ArrayTypeStyle"/> <!-- enforce Java style arrays -->
+        <module name="MissingSwitchDefault"/>
+        <module name="FallThrough"/>
+        <module name="UpperEll"/>
+        <module name="ModifierOrder"/>
+        <module name="EmptyLineSeparator">
+            <property name="tokens"
+                      value="PACKAGE_DEF, IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
+                    STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+            <property name="allowNoEmptyLineBetweenFields" value="true"/>
+        </module>
+        <module name="SeparatorWrap">
+            <property name="id" value="SeparatorWrapDot"/>
+            <property name="tokens" value="DOT"/>
+            <property name="option" value="nl"/>
+        </module>
+        <module name="SeparatorWrap">
+            <property name="id" value="SeparatorWrapComma"/>
+            <property name="tokens" value="COMMA"/>
+            <property name="option" value="EOL"/>
+        </module>
+        <module name="SeparatorWrap">
+            <!-- ELLIPSIS is EOL until https://github.com/google/styleguide/issues/258 -->
+            <property name="id" value="SeparatorWrapEllipsis"/>
+            <property name="tokens" value="ELLIPSIS"/>
+            <property name="option" value="EOL"/>
+        </module>
+        <module name="SeparatorWrap">
+            <!-- ARRAY_DECLARATOR is EOL until https://github.com/google/styleguide/issues/259 -->
+            <property name="id" value="SeparatorWrapArrayDeclarator"/>
+            <property name="tokens" value="ARRAY_DECLARATOR"/>
+            <property name="option" value="EOL"/>
+        </module>
+        <module name="SeparatorWrap">
+            <property name="id" value="SeparatorWrapMethodRef"/>
+            <property name="tokens" value="METHOD_REF"/>
+            <property name="option" value="nl"/>
+        </module>
+        <module name="PackageName">
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+            <message key="name.invalidPattern"
+                     value="Package name ''{0}'' must match pattern ''{1}''."/>
+        </module>
+        <module name="TypeName">
+            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF"/>
+            <message key="name.invalidPattern"
+                     value="Type name ''{0}'' must match pattern ''{1}''."/>
+        </module>
+        <module name="MemberName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+            <message key="name.invalidPattern"
+                     value="Member name ''{0}'' must match pattern ''{1}''."/>
+        </module>
+        <module name="ParameterName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*?$"/>
+            <message key="name.invalidPattern"
+                     value="Parameter name ''{0}'' must match pattern ''{1}''."/>
+        </module>
+        <module name="LambdaParameterName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*?$"/>
+            <message key="name.invalidPattern"
+                     value="Lambda parameter name ''{0}'' must match pattern ''{1}''."/>
+        </module>
+        <module name="CatchParameterName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*?$"/>
+            <message key="name.invalidPattern"
+                     value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
+        </module>
+        <module name="LocalVariableName">
+            <property name="format" value="^[a-z][a-zA-Z0-9]*?$"/>
+            <message key="name.invalidPattern"
+                     value="Local variable name ''{0}'' must match pattern ''{1}''."/>
+        </module>
+        <module name="ClassTypeParameterName">
+            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+            <message key="name.invalidPattern"
+                     value="Class type name ''{0}'' must match pattern ''{1}''."/>
+        </module>
+        <module name="MethodTypeParameterName">
+            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+            <message key="name.invalidPattern"
+                     value="Method type name ''{0}'' must match pattern ''{1}''."/>
+        </module>
+        <module name="InterfaceTypeParameterName">
+            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+            <message key="name.invalidPattern"
+                     value="Interface type name ''{0}'' must match pattern ''{1}''."/>
+        </module>
+        <module name="NoFinalizer"/>
+        <module name="GenericWhitespace">
+            <message key="ws.followed"
+                     value="GenericWhitespace ''{0}'' is followed by whitespace."/>
+            <message key="ws.preceded"
+                     value="GenericWhitespace ''{0}'' is preceded with whitespace."/>
+            <message key="ws.illegalFollow"
+                     value="GenericWhitespace ''{0}'' should followed by whitespace."/>
+            <message key="ws.notPreceded"
+                     value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
+        </module>
+        <module name="AbbreviationAsWordInName"> <!-- enforce proper CamelCase -->
+            <property name="ignoreFinal" value="false"/>
+            <property name="allowedAbbreviationLength" value="3"/>
+            <property name="tokens"
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, ANNOTATION_DEF, ANNOTATION_FIELD_DEF,
+                    PARAMETER_DEF, VARIABLE_DEF, METHOD_DEF"/>
+        </module>
+        <module name="VariableDeclarationUsageDistance"/>
+        <module name="MethodParamPad">
+            <property name="tokens"
+                      value="CTOR_DEF, LITERAL_NEW, METHOD_CALL, METHOD_DEF,
+                    SUPER_CTOR_CALL, ENUM_CONSTANT_DEF"/>
+        </module>
+        <module name="NoWhitespaceBefore">
+            <property name="tokens"
+                      value="COMMA, SEMI, POST_INC, POST_DEC, DOT,
+                    LABELED_STAT, METHOD_REF"/>
+            <property name="allowLineBreaks" value="true"/>
+        </module>
+        <module name="ParenPad">
+            <property name="tokens"
+                      value="ANNOTATION, ANNOTATION_FIELD_DEF, CTOR_CALL, CTOR_DEF, DOT, ENUM_CONSTANT_DEF,
+                    EXPR, LITERAL_CATCH, LITERAL_DO, LITERAL_FOR, LITERAL_IF, LITERAL_NEW,
+                    LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_WHILE, METHOD_CALL,
+                    METHOD_DEF, QUESTION, RESOURCE_SPECIFICATION, SUPER_CTOR_CALL, LAMBDA"/>
+        </module>
+        <module name="OperatorWrap">
+            <property name="option" value="NL"/>
+            <property name="tokens"
+                      value="BAND, BOR, BSR, BXOR, DIV, EQUAL, GE, GT, LAND, LE, LITERAL_INSTANCEOF, LOR,
+                    LT, MINUS, MOD, NOT_EQUAL, PLUS, QUESTION, SL, SR, STAR, METHOD_REF "/>
+        </module>
+        <module name="AnnotationLocation">
+            <property name="id" value="AnnotationLocationMostCases"/>
+            <property name="tokens"
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF"/>
+        </module>
+        <module name="AnnotationLocation">
+            <property name="id" value="AnnotationLocationVariables"/>
+            <property name="tokens" value="VARIABLE_DEF"/>
+            <property name="allowSamelineMultipleAnnotations" value="true"/>
+        </module>
+        <module name="NonEmptyAtclauseDescription"/>
+        <module name="InvalidJavadocPosition"/>
+        <module name="JavadocTagContinuationIndentation"/>
+        <module name="JavadocParagraph"/>
+        <module name="AtclauseOrder"> <!-- enforce standard order for javadoc elements - matches IntelliJ's order -->
+            <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>
+            <property name="target"
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+        </module>
+        <module name="JavadocMethod">
+            <property name="scope" value="public"/>
+            <property name="allowMissingParamTags" value="true"/>
+            <property name="allowMissingReturnTag" value="true"/>
+            <property name="allowedAnnotations" value="Override, Test"/>
+            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF"/>
+        </module>
+        <module name="MethodName">
+            <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9_]*$"/>
+            <message key="name.invalidPattern"
+                     value="Method name ''{0}'' must match pattern ''{1}''."/>
+        </module>
+        <module name="EmptyCatchBlock">
+            <property name="exceptionVariableName" value="expected"/>
+            <property name="commentFormat" value="expected|ignore"/>
+        </module>
+        <module name="CommentsIndentation">
+            <property name="tokens" value="SINGLE_LINE_COMMENT, BLOCK_COMMENT_BEGIN"/>
+        </module>
+        <!-- https://checkstyle.org/config_filters.html#SuppressionXpathFilter -->
+        <module name="SuppressionXpathFilter">
+            <property name="file" value="${org.checkstyle.google.suppressionxpathfilter.config}"
+                      default="checkstyle-xpath-suppressions.xml" />
+            <property name="optional" value="true"/>
+        </module>
+
+        <module name="StaticMethodCandidate"/>
+        <module name="UselessSingleCatchCheck"/>
+        <module name="NestedSwitchCheck"/>
+        <module name="NameConventionForJunit4TestClassesCheck"/>
+        <module name="EmptyPublicCtorInClassCheck"/>
+        <module name="TernaryPerExpressionCount"/>
+        <module name="ReturnNullInsteadOfBoolean"/>
+        <module name="ReturnBooleanFromTernary"/>
+        <module name="PublicReferenceToPrivateTypeCheck"/>
+        <module name="NoNullForCollectionReturnCheck"/>
+        <module name="NoMainMethodInAbstractClass"/>
+        <module name="com.github.sevntu.checkstyle.checks.naming.InterfaceTypeParameterNameCheck"/>
+        <module name="ForbidThrowAnonymousExceptionsCheck"/>
+        <module name="ForbidReturnInFinallyBlock"/>
+        <module name="ForbidInstantiation">
+            <property name="forbiddenClasses" value="java.lang.NullPointerException,
+             java.util.Vector, java.util.Stack,com.google.collect.Iterables,
+             com.google.common.primitives.Ints,com.google.common.base.String,
+             com.google.common.base.Function,com.google.common.base.Supplier,
+             com.google.common.base.Charsets,com.google.common.base.MoreObjects,
+             com.google.common.base.Optional,com.google.common.base.Equivalence,
+             com.google.common.base.Preconditions,com.google.common.base.Predicate,
+             com.google.common.io.CharSource,com.google.common.annotations.Beta,
+             com.google.common.collect.Queues,com.google.common.collect.Sets,
+             com.google.common.collect.Lists,com.google.common.annotations.GwtCompatible,
+             com.google.common.io.Files,com.google.common.collect.TreeTraverser"/>
+        </module>
+        <module name="ForbidCCommentsInMethods"/>
+        <module name="FinalizeImplementationCheck"/>
+        <module name="RequiredParameterForAnnotation"/>
+        <module name="DiamondOperatorForVariableDefinitionCheck"/>
+        <module name="ConfusingConditionCheck"/>
+        <module name="AvoidDefaultSerializableInInnerClasses"/>
+        <module name="UselessSuperCtorCallCheck"/>
+        <module name="UnnecessaryParenthesesExtended">
+            <property name="ignoreCalculationOfBooleanVariables" value="true"/>
+            <property name="ignoreCalculationOfBooleanVariablesWithReturn" value="true"/>
+            <property name="ignoreCalculationOfBooleanVariablesWithAssert" value="true"/>
+        </module>
+        <module name="MultipleVariableDeclarationsExtended">
+            <property name="ignoreCycles" value="true"/>
+            <property name="ignoreMethods" value="true"/>
+        </module>
+        <module name="ChildBlockLength">
+            <property name="blockTypes"
+                      value="LITERAL_IF,LITERAL_ELSE,LITERAL_WHILE,LITERAL_DO,
+                             LITERAL_FOR,LITERAL_SWITCH,LITERAL_TRY,LITERAL_CATCH"/>
+        </module>
+        <module name="MapIterationInForEachLoop">
+            <property name="proposeKeySetUsage" value="true"/>
+            <property name="proposeEntrySetUsage" value="true"/>
+        </module>
+
+        <!-- Might cause problems related to issue:
+        https://github.com/sevntu-checkstyle/sevntu.checkstyle/issues/352 -->
+        <module name="AvoidConstantAsFirstOperandInConditionCheck">
+            <property name="targetConstantTypes"
+                      value="LITERAL_NULL,LITERAL_TRUE,LITERAL_FALSE,
+                             NUM_INT,NUM_DOUBLE,NUM_LONG,NUM_FLOAT"/>
+        </module>
+        <module name="EitherLogOrThrowCheck"/>
+        <module name="IllegalCatchExtended">
+            <property name="allowRethrow" value="true"/>
+        </module>
+        <module name="IllegalImport"/> <!-- prevent imports from the sun.* package -->
+        <module name="IllegalThrows"/> <!-- prevent generic throws (i.e. Exception, Throwable, RuntimeException) -->
+        <module name="AvoidNotShortCircuitOperatorsForBoolean"/>
+        <module name="RedundantReturn"/>
+        <module name="WhitespaceBeforeArrayInitializer"/>
+        <module name="InnerClass"/>
+        <module name="EnumValueNameCheck">
+            <property name="format" value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+        </module>
+        <module name="OverridableMethodInConstructor">
+            <property name="checkCloneMethod" value="true"/>
+            <property name="checkReadObjectMethod" value="true"/>
+            <property name="matchMethodsByArgCount" value="true"/>
+        </module>
+        <module name="ForbidAnnotation">
+            <property name="annotationNames" value="Ignore, VisibleForTesting"/>
+            <property name="annotationTargets" value="METHOD_DEF"/>
+        </module>
+        <module name="RequiredParameterForAnnotation">
+            <property name="annotationName" value="Generated"/>
+            <property name="requiredParameters" value="value"/>
+        </module>
+        <module name="ForbidCertainImports">
+            <property name="packageNameRegexp" value=".+"/>
+            <property name="forbiddenImportsRegexp" value="java\.util\.Stack|java\.util\.Vector|
+            com\.google\.collect\.Iterables|com\.google\.common\.annotations\.Beta|
+            com\.google\.common\.base\.Predicate|com\.google\.common\.base\.String||
+            com\.google\.common\.base\.Function|com\.google\.common\.base\.Supplier|
+            com\.google\.common\.base\.Charsets|com\.google\.common\.base\.MoreObjects|
+            com\.google\.common\.base\.Equivalence|com\.google\.common\.base\.Preconditions|
+            com\.google\.common\.base\.Optional|com\.google\.common\.io\.CharSource|
+            com\.google\.common\.primitives.*|com\.google\.common\.collect\.Sets|
+            com\.google\.common\.collect\.Queues|com\.google\.common\.collect\.Lists|
+            com\.google\.common\.annotations\.GwtCompatible|com\.google\.common\.io\.Files|
+            com\.google\.common\.collect\.TreeTraverser"/>
+            <property name="forbiddenImportsExcludesRegexp" value=""/>
+        </module>
+        <module name="ForbidCertainImports">
+            <property name="packageNameRegexp"
+                      value=".+\.checkstyle\.api.*|.+\.checkstyle\.utils.*"/>
+            <property name="forbiddenImportsRegexp" value=".+\.checks\..+"/>
+            <!-- AccessModifier is in util package (should be moved to api package) to disallow
+            its usage by API clients till https://github.com/checkstyle/checkstyle/issues/3511 -->
+            <property name="forbiddenImportsExcludesRegexp"
+                      value="^com.puppycrawl.tools.checkstyle.checks.naming.AccessModifier$"/>
+        </module>
+        <module name="SimpleAccessorNameNotation"/>
+        <module name="ForbidWildcardAsReturnType"/>
+        <module name="LogicConditionNeedOptimizationCheck"/>
+        <module name="AvoidConditionInversionCheck"/>
+        <module name="SingleBreakOrContinueCheck"/>
+        <module name="NumericLiteralNeedsUnderscoreCheck"/>
+        <module name="UniformEnumConstantNameCheck" />
+        <module name="ForbidAnnotationElementValueCheck" />
+        <module name="AvoidModifiersForTypesCheck">
+            <property name="forbiddenClassesRegexpProtected" value="Logger"/>
+            <property name="forbiddenClassesRegexpPublic" value="Logger"/>
+            <property name="forbiddenClassesRegexpPackagePrivate" value="Logger"/>
+            <property name="forbiddenClassesRegexpStatic" value="Logger"/>
+        </module>
+        <module name="ConstructorWithoutParamsCheck">
+            <property name="classNameFormat" value=".*Exception$"/>
+            <property name="ignoredClassNameFormat" value="UnsupportedOperationException"/>
+        </module>
+        <module name="MoveVariableInsideIfCheck" />
+        <module name="RequireFailForTryCatchInJunit" />
+        <!-- we are not ready to activate this Check, too much violations
+             and it requires bunch of refactoring -->
+        <module name="com.github.sevntu.checkstyle.checks.coding.Jsr305AnnotationsCheck">
+            <property name="severity" value="ignore"/>
+            <property name="packages" value="com.puppycrawl.tools.checkstyle"/>
+            <property name="excludePackages" value="com.puppycrawl.tools.checkstyle.gui"/>
+            <property name="allowOverridingReturnValue" value="false"/>
+            <property name="allowOverridingParameter" value="false"/>
+        </module>
+        <module name="CheckstyleTestMakeupCheck" />
+        <module name="com.github.sevntu.checkstyle.checks.coding.ForbidCertainMethodCheck">
+            <property name="methodName" value="assert(True|False)"/>
+            <property name="argumentCount" value="1"/>
+        </module>
+
+        <!-- limit complexity score https://github.com/kemitix/kemitix-checkstyle-ruleset#cyclomaticcomplexity -->
+        <module name="CyclomaticComplexity">
+            <property name="max" value="16"/>
+        </module>
+        <module name="DefaultComesLast"/> <!-- enforce default as last option in switch statement -->
+        <module name="JavaNCSS"> <!-- Non-Commenting Source Statements complexity analysis -->
+            <property name="methodMaximum" value="80"/> <!-- lines per methods -->
+            <property name="classMaximum" value="1200"/> <!-- lines per class -->
+            <property name="fileMaximum" value="1600"/> <!-- lines per file -->
+        </module>
+        <module name="MethodCount"> <!-- restrict the number of methods in a class -->
+            <property name="maxTotal" value="30"/>
+        </module>
+        <module name="NoClone"/> <!-- prevent overriding Object.clone() -->
+        <module name="NoFinalizer"/> <!-- prevent overriding Object.finalize() -->
+        <module name="SimplifyBooleanExpression"/> <!-- finds code like if (b == true), b || true, !false, etc. -->
+        <module name="SimplifyBooleanReturn"/> <!-- overly complicated boolean return statements. -->
+        <module name="StringLiteralEquality"/> <!-- use .equals(...) when comparing strings for equality -->
+        <module name="MapIterationInForEachLoopCheck"/> <!-- warns of unoptimised map iteration -->
+        <module name="ReturnBooleanFromTernaryCheck"/> <!-- use value inside condition -->
+        <module name="UselessSingleCatchCheck"/> <!-- prevent single catch blocks that just rethrow the original exception -->
+        <module name="UselessSuperCtorCallCheck"/> <!-- detects calls to super() when not needed -->
+
+    </module>
+</module>

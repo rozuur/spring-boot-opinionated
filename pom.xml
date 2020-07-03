@@ -32,6 +32,9 @@
 		<maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
 		<spotbugs-maven-plugin.version>3.1.12.2</spotbugs-maven-plugin.version>
 		<spotbugs.version>4.0.0</spotbugs.version>
+		<maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
+		<puppycrawl.checkstyle.version>8.34</puppycrawl.checkstyle.version>
+		<sevntu-checks.checkstyle.version>1.37.1</sevntu-checks.checkstyle.version>
 		<modernizer-maven-plugin.version>2.1.0</modernizer-maven-plugin.version>
 		<jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
 		<!-- 80% of coverage -->
@@ -269,6 +272,42 @@
 				<executions>
 					<execution>
 						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Check Style with modified google coding style -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${maven-checkstyle-plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.puppycrawl.tools</groupId>
+						<artifactId>checkstyle</artifactId>
+						<version>${puppycrawl.checkstyle.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.github.sevntu-checkstyle</groupId>
+						<artifactId>sevntu-checks</artifactId>
+						<version>${sevntu-checks.checkstyle.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<sourceDirectories>
+						<sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+					</sourceDirectories>
+					<failOnViolation>true</failOnViolation>
+					<configLocation>${project.basedir}/tools/checkstyle/google_sevntu_kemitix_checks.xml</configLocation>
+					<enableRSS>false</enableRSS>
+				</configuration>
+				<executions>
+					<execution>
+						<id>checkstyle-fail-build</id>
+						<phase>compile</phase>
 						<goals>
 							<goal>check</goal>
 						</goals>
