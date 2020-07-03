@@ -21,7 +21,7 @@ public class RequestLoggingFilter extends CommonsRequestLoggingFilter {
 
     @Override
     protected boolean shouldLog(HttpServletRequest request) {
-        return logger.isInfoEnabled() && !request.getRequestURI().endsWith(healthEndpointPath);
+        return logger.isInfoEnabled() && !request.getRequestURI().contains(healthEndpointPath);
     }
 
     @Override

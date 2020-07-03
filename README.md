@@ -1,5 +1,5 @@
 # spring-boot-opinionated
-Opinionated setup of spring boot application
+An opinionated setup of spring boot application
 
 ## Java
 Uses Java 11
@@ -37,11 +37,15 @@ PUT APIs should return updated resource
 
 ## Actuator
 
-**/health** is health check endpoint
+**actuator/health/readiness** is health check endpoint for load balancer
 
-**/info** API exposes git state through [git-commit-id-plugin](https://github.com/git-commit-id/git-commit-id-maven-plugin)
+**actuator/health** shows health stats
 
-**/prometheus** API exposes metrics
+**actuator/info** API exposes git state through [git-commit-id-plugin](https://github.com/git-commit-id/git-commit-id-maven-plugin)
+
+**actuator/prometheus** API exposes metrics
+
+**actuator/loggers** Used for changing log levels in runtime
 
 ## Static Analysis
 Following plugins are used for static analysis
