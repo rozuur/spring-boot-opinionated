@@ -19,6 +19,8 @@ function mvn() {
 }
 
 function perform_release() {
+  # Clean and format the code, if there are changes build will fail when preparing release
+  mvn clean fmt:format
   # Uses maven releaes plugin to upgrade project version and create git tags
   # release:prepare also executes 'clean verify' goals
   mvn release:clean release:prepare
@@ -38,6 +40,15 @@ function deploy_artifacts() {
   docker rmi "$(docker images --format '{{.Repository}}:{{.Tag}}' | grep ${app_name})"
 }
 
+function validate_release_state() {
+  if [[ "${USER}" != "jenkins" ]]; then
+    die "Release only happens on jenkins"
+  fi
+  if [[ "${GIT_BRANCH}" != "master" ]]; then
+    die "Release can only happen with master branch"
+  fi
+}
+
 function main() {
   if [[ "${USER}" != "jenkins" ]]; then
     die "Only runs on jenkins"
@@ -50,6 +61,7 @@ function main() {
 
   mvn --update-snapshots dependency:go-offline
   if [[ "${RELEASE}" == "true" ]]; then
+    validate_release_state
     perform_release
     deploy_artifacts "${build_version}" "${app_name}"
   else
